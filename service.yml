@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+  namespace: monitoring
+  labels:
+    app: httpd
+spec:
+  selector:
+    app: httpd
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    nodePort: 31010
+    targetPort: 80

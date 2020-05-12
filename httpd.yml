@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-dep
+  namespace: monitoring
+  labels:
+    app: httpd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '30090'
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
